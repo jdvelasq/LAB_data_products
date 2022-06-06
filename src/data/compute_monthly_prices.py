@@ -13,3 +13,9 @@ def compute_monthly_prices():
 
     """
     raise NotImplementedError("Implementar esta función")
+
+
+if __name__ == "__main__":
+    import doctest
+
+    doctest.testmod()
