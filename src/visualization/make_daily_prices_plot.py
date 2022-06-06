@@ -8,3 +8,9 @@ def make_daily_prices_plot():
 
     """
     raise NotImplementedError("Implementar esta función")
+
+
+if __name__ == "__main__":
+    import doctest
+
+    doctest.testmod()
