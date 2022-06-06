@@ -8,3 +8,9 @@ def transform_data():
 
     """
     raise NotImplementedError("Implementar esta función")
+
+
+if __name__ == "__main__":
+    import doctest
+
+    doctest.testmod()
