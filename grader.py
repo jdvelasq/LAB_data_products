@@ -10,7 +10,7 @@ import os
 import sys
 
 
-def test_04():
+def test_01():
     """Califica la creación del data lake"""
     os.system("rm -rf data_lake")
     os.system("make create_data_lake")
@@ -23,7 +23,7 @@ def test_04():
     assert os.path.isdir("data_lake/raw") is True
 
 
-def test_05():
+def test_02():
     """Califica la ingestión de datos"""
     os.system("make ingest_data")
     assert os.path.isfile("data_lake/landing/1995.xlsx") is True
@@ -55,7 +55,7 @@ def test_05():
     assert os.path.isfile("data_lake/landing/2021.xlsx") is True
 
 
-def test_06():
+def test_03():
     """Califica la transformación de datos de excel a csv"""
     os.system("make transform_data")
     assert os.path.isfile("data_lake/raw/1995.csv") is True
@@ -87,59 +87,62 @@ def test_06():
     assert os.path.isfile("data_lake/raw/2021.csv") is True
 
 
-def test_07():
+def test_04():
     """Califica la creacion de la tabla de precios diarios"""
     os.system("make clean_data")
     assert os.path.isfile("data_lake/cleansed/precios-horarios.csv") is True
 
 
-def test_08():
+def test_05():
     """Computa los precios promedios diarios"""
     os.system("make compute_daily_prices")
     assert os.path.isfile("data_lake/business/precios-diarios.csv") is True
 
 
-def test_09():
+def test_06():
     """Computa los precios promedios mensuales"""
     os.system("make compute_monthly_prices")
     assert os.path.isfile("data_lake/business/precios-mensuales.csv") is True
 
 
-def test_10():
+def test_07():
     """Evalua el pipeline"""
     os.system("make pipeline")
     assert os.path.isfile("data_lake/business/precios-diarios.csv") is True
     assert os.path.isfile("data_lake/business/precios-mensuales.csv") is True
 
 
-def test_11():
+def test_08():
     """Evalua figura precios diarios"""
     assert os.path.isfile("data_lake/business/reports/figures/daily_prices.png") is True
 
 
-def test_12():
+def test_09():
     """Evalua figura precios diarios"""
     assert (
         os.path.isfile("data_lake/business/reports/figures/monthly_prices.png") is True
     )
 
 
-def test_13():
+def test_10():
     """Evalua la creación de características para modelos"""
     assert os.path.isfile("data_lake/business/features/precios_diarios.csv") is True
 
 
-def test_14():
+def test_11():
     """Modelo creado"""
     assert os.path.isfile("modeles/precios-diarios.pkl") is True
 
 
-def test_15():
+def test_12():
     """Pronosticos"""
     assert os.path.isfile("data_lake/business/forecasts/precios-diarios.csv") is True
 
 
 test = {
+    "01": test_01,
+    "02": test_02,
+    "03": test_03,
     "04": test_04,
     "05": test_05,
     "06": test_06,
@@ -149,9 +152,6 @@ test = {
     "10": test_10,
     "11": test_11,
     "12": test_12,
-    "13": test_13,
-    "14": test_14,
-    "15": test_15,
 }[sys.argv[1]]
 
 test()
